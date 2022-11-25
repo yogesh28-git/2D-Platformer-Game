@@ -5,12 +5,17 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    BoxCollider2D playerCollider;
     void Awake()
     {
         Debug.Log("Script detected !!!");
     }
+    private void Start()
+    {
+        playerCollider = GetComponent<BoxCollider2D>();
 
-    
+    }
+
     void Update()
     {
         float speed = Input.GetAxisRaw("Horizontal");
@@ -20,7 +25,7 @@ public class PlayerController : MonoBehaviour
         }
         animator.SetFloat("Speed", Mathf.Abs(speed));                          
         animator.SetBool("Walk_Button", (speed != 0 ? true : false));
-        Debug.Log("Speed: "+ speed);
+        
 
         //Flipping the player 
         Vector3 scale = transform.localScale;
@@ -37,5 +42,12 @@ public class PlayerController : MonoBehaviour
         //Crouch
         bool crouch = (Input.GetKey(KeyCode.LeftControl)) || (Input.GetKey(KeyCode.RightControl));
         animator.SetBool("Crouch", crouch);
+
+        if (crouch)
+        {
+            playerCollider.size = new Vector2(0.9f, 1.3f);
+            playerCollider.offset = new Vector2(-0.12f, 0.6f);
+        }
+
     }
 }
