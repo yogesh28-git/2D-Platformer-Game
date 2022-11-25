@@ -49,5 +49,15 @@ public class PlayerController : MonoBehaviour
             playerCollider.offset = new Vector2(-0.12f, 0.6f);
         }
 
+        bool jumped = (Input.GetKeyDown(KeyCode.Space));
+        if (!animator.GetBool("Jumped"))
+        {
+            animator.SetBool("Jumped", jumped);
+        }
+        else
+        {
+            animator.SetBool("Jumped", false);
+        }
+        
     }
 }
