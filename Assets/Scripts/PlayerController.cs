@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
         }
         animator.SetFloat("Speed", Mathf.Abs(speed));                          
         animator.SetBool("Walk_Button", (speed != 0 ? true : false));
-        Debug.Log(speed);
+        Debug.Log("Speed: "+ speed);
 
         //Flipping the player 
         Vector3 scale = transform.localScale;
@@ -33,5 +33,9 @@ public class PlayerController : MonoBehaviour
             scale.x = Mathf.Abs(scale.x);
         }
         transform.localScale = scale;
+
+        //Crouch
+        bool crouch = (Input.GetKey(KeyCode.LeftControl)) || (Input.GetKey(KeyCode.RightControl));
+        animator.SetBool("Crouch", crouch);
     }
 }
