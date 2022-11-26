@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
         }
         transform.localScale = scale;
 
-        //Crouch
+        //Crouch Animation
         bool crouch = (Input.GetKey(KeyCode.LeftControl)) || (Input.GetKey(KeyCode.RightControl));
         animator.SetBool("Crouch", crouch);
 
@@ -49,15 +49,12 @@ public class PlayerController : MonoBehaviour
             playerCollider.offset = new Vector2(-0.12f, 0.6f);
         }
 
+        //Jump Animation
+
         bool jumped = (Input.GetKeyDown(KeyCode.Space));
-        if (!animator.GetBool("Jumped"))
-        {
-            animator.SetBool("Jumped", jumped);
-        }
-        else
-        {
-            animator.SetBool("Jumped", false);
-        }
-        
+        animator.SetBool("Jumped", jumped);
+
+
+
     }
 }
