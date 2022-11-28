@@ -4,36 +4,84 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator;
+    Animator animator;
     BoxCollider2D playerCollider;
+    Rigidbody2D playerBody;
+
+    public float speed;
+    public float jumpForce;
+    private bool isGrounded = false;
     void Awake()
     {
         Debug.Log("Script detected !!!");
     }
     private void Start()
     {
-        playerCollider = GetComponent<BoxCollider2D>();
-
+        playerCollider = gameObject.GetComponent<BoxCollider2D>();
+        animator = gameObject.GetComponent<Animator>();
+        playerBody = gameObject.GetComponent<Rigidbody2D>();
     }
 
     void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        if(Input.GetKey(KeyCode.LeftShift))                          // For Run animation, I make speed variable > 1.99, Pressing L.Shift
+        float horizontal = Input.GetAxisRaw("Horizontal");
+        PlayerAnimation(horizontal);
+        PlayerMovement(horizontal);
+    }
+    private void PlayerMovement(float horizontal)
+    {   
+        //walk and run
+        Vector3 position = transform.position;
+        if(Input.GetKey(KeyCode.LeftShift))                          
         {
-            speed = 2 * speed;
+            position.x += horizontal * speed * Time.deltaTime * 2;  //Run
         }
-        animator.SetFloat("Speed", Mathf.Abs(speed));                          
-        animator.SetBool("Walk_Button", (speed != 0 ? true : false));
-        
+        else
+        {
+            position.x += horizontal * speed * Time.deltaTime;     //Walk
+        }
+        transform.position = position;
+
+        //Jump
+        if(Input.GetButtonDown("Jump") && isGrounded)
+        {
+            isGrounded = false;
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                playerBody.AddForce(new Vector2(0f, 1.2f*jumpForce), ForceMode2D.Impulse);    //Running Jump
+            }
+            else
+            {
+                playerBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);         //Walking Jump
+            }
+        }
+
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void PlayerAnimation(float horizontal)
+    {
+        if (Input.GetKey(KeyCode.LeftShift))                          // For Run animation, I make speed variable > 1.99, Pressing L.Shift
+        {
+            horizontal = 2 * horizontal;
+        }
+        animator.SetFloat("Speed", Mathf.Abs(horizontal));
+        animator.SetBool("Walk_Button", (horizontal != 0 ? true : false));
+
 
         //Flipping the player 
         Vector3 scale = transform.localScale;
-        if (speed < 0)
+        if (horizontal < 0)
         {
             scale.x = -1f * Mathf.Abs(scale.x);
         }
-        else if(speed > 0)
+        else if (horizontal > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
@@ -51,10 +99,8 @@ public class PlayerController : MonoBehaviour
 
         //Jump Animation
 
-        bool jumped = (Input.GetKeyDown(KeyCode.Space));
+        bool jumped = (Input.GetButtonDown("Jump"));
         animator.SetBool("Jumped", jumped);
-
-
-
+        animator.SetBool("isGrounded", isGrounded);
     }
 }

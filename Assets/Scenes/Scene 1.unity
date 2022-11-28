@@ -221,7 +221,7 @@ GameObject:
   - component: {fileID: 1661165444}
   m_Layer: 0
   m_Name: Platform
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -235,7 +235,7 @@ Transform:
   m_GameObject: {fileID: 1661165441}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 2.95, y: -0.77, z: 0.08353922}
-  m_LocalScale: {x: 2.6375, y: 1, z: 1}
+  m_LocalScale: {x: 27.957502, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -327,8 +327,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1951634184, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
+      propertyPath: m_Mass
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1951634184, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
       propertyPath: m_Constraints
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1951634188, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
+      propertyPath: speed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1951634188, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
+      propertyPath: jumpForce
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3257025314534015447, guid: 1996f3e9b455da5428205208bd14c6c9,
         type: 3}
