@@ -320,7 +320,6 @@ BoxCollider2D:
   m_Size: {x: 1, y: 0.7245236}
   m_EdgeRadius: 0
 --- !u!1001 &1951634181
-=======
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
