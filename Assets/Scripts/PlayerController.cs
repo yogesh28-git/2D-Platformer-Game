@@ -4,13 +4,18 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    Animator animator;
-    BoxCollider2D playerCollider;
-    Rigidbody2D playerBody;
+    private Animator animator;
+    private BoxCollider2D playerCollider;
+    private Rigidbody2D playerBody;
 
-    public float speed;
-    public float jumpForce;
+    [SerializeField] private float speed;
+    [SerializeField] private float jumpForce;
+    
     private bool isGrounded = false;
+    private bool shiftPressed = false;
+    private bool jumpPressDown = false;
+    private bool ctrlPressed = false;
+
     void Awake()
     {
         Debug.Log("Script detected !!!");
@@ -24,7 +29,12 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
+        //Inputs
         float horizontal = Input.GetAxisRaw("Horizontal");
+        shiftPressed = Input.GetKey(KeyCode.LeftShift);
+        jumpPressDown = Input.GetButtonDown("Jump");
+        ctrlPressed = (Input.GetKey(KeyCode.LeftControl)) || (Input.GetKey(KeyCode.RightControl)) ;
+
         PlayerAnimation(horizontal);
         PlayerMovement(horizontal);
     }
@@ -32,7 +42,7 @@ public class PlayerController : MonoBehaviour
     {   
         //walk and run
         Vector3 position = transform.position;
-        if(Input.GetKey(KeyCode.LeftShift))                          
+        if(shiftPressed)                          
         {
             position.x += horizontal * speed * Time.deltaTime * 2;  //Run
         }
@@ -43,10 +53,10 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
 
         //Jump
-        if(Input.GetButtonDown("Jump") && isGrounded)
+        if(jumpPressDown && isGrounded)
         {
             isGrounded = false;
-            if (Input.GetKey(KeyCode.LeftShift))
+            if (shiftPressed)
             {
                 playerBody.AddForce(new Vector2(0f, 1.2f*jumpForce), ForceMode2D.Impulse);    //Running Jump
             }
@@ -67,7 +77,7 @@ public class PlayerController : MonoBehaviour
 
     private void PlayerAnimation(float horizontal)
     {
-        if (Input.GetKey(KeyCode.LeftShift))                          // For Run animation, I make speed variable > 1.99, Pressing L.Shift
+        if (shiftPressed)                          // For Run animation, I make speed variable > 1.99, Pressing L.Shift
         {
             horizontal = 2 * horizontal;
         }
@@ -88,19 +98,20 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
         //Crouch Animation
-        bool crouch = (Input.GetKey(KeyCode.LeftControl)) || (Input.GetKey(KeyCode.RightControl));
-        animator.SetBool("Crouch", crouch);
-
-        if (crouch)
+        animator.SetBool("Crouch", ctrlPressed);
+        if (ctrlPressed)
         {
-            playerCollider.size = new Vector2(0.9f, 1.3f);
             playerCollider.offset = new Vector2(-0.12f, 0.6f);
+            playerCollider.size = new Vector2(0.9f, 1.3f);
+        }
+        else
+        {
+            playerCollider.offset = new Vector2(0f, 0.95f);
+            playerCollider.size = new Vector2(0.6f, 2f);
         }
 
         //Jump Animation
-
-        bool jumped = (Input.GetButtonDown("Jump"));
-        animator.SetBool("Jumped", jumped);
+        animator.SetBool("Jumped", jumpPressDown);
         animator.SetBool("isGrounded", isGrounded);
     }
 }
