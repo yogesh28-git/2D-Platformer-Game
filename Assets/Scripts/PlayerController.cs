@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -10,11 +11,13 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
-    
+
     private bool isGrounded = false;
     private bool shiftPressed = false;
     private bool jumpPressDown = false;
     private bool ctrlPressed = false;
+
+    [SerializeField] private string NewScene = "Level 2";
 
     void Awake()
     {
@@ -33,16 +36,16 @@ public class PlayerController : MonoBehaviour
         float horizontal = Input.GetAxisRaw("Horizontal");
         shiftPressed = Input.GetKey(KeyCode.LeftShift);
         jumpPressDown = Input.GetButtonDown("Jump");
-        ctrlPressed = (Input.GetKey(KeyCode.LeftControl)) || (Input.GetKey(KeyCode.RightControl)) ;
+        ctrlPressed = (Input.GetKey(KeyCode.LeftControl)) || (Input.GetKey(KeyCode.RightControl));
 
         PlayerAnimation(horizontal);
         PlayerMovement(horizontal);
     }
     private void PlayerMovement(float horizontal)
-    {   
+    {
         //walk and run
         Vector3 position = transform.position;
-        if(shiftPressed)                          
+        if (shiftPressed)
         {
             position.x += horizontal * speed * Time.deltaTime * 2;  //Run
         }
@@ -53,12 +56,12 @@ public class PlayerController : MonoBehaviour
         transform.position = position;
 
         //Jump
-        if(jumpPressDown && isGrounded)
+        if (jumpPressDown && isGrounded)
         {
             isGrounded = false;
             if (shiftPressed)
             {
-                playerBody.AddForce(new Vector2(0f, 1.2f*jumpForce), ForceMode2D.Impulse);    //Running Jump
+                playerBody.AddForce(new Vector2(0f, 1.2f * jumpForce), ForceMode2D.Impulse);    //Running Jump
             }
             else
             {
@@ -114,4 +117,13 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Jumped", jumpPressDown);
         animator.SetBool("isGrounded", isGrounded);
     }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("LevelEnd"))
+        {
+            Debug.Log("Triggered");
+            SceneManager.LoadScene("Level 2");
+        }
+    }
+
 }
