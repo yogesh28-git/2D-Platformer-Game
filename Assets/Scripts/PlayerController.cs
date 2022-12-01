@@ -70,13 +70,7 @@ public class PlayerController : MonoBehaviour
         }
 
     }
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = true;
-        }
-    }
+    
 
     private void PlayerAnimation(float horizontal)
     {
@@ -117,6 +111,19 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("Jumped", jumpPressDown);
         animator.SetBool("isGrounded", isGrounded);
     }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+
+        if (collision.gameObject.CompareTag("Death"))              //Death by Falling from a Platform
+        {
+            animator.SetTrigger("Death");
+            Destroy(gameObject, 1f);
+        }
+    }
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("LevelEnd"))
@@ -125,5 +132,19 @@ public class PlayerController : MonoBehaviour
             SceneManager.LoadScene("Level 2");
         }
     }
+
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        SceneManager.LoadScene("Level 1");
+    }
+
 
 }
