@@ -138,7 +138,7 @@ GameObject:
   - component: {fileID: 1215443626}
   m_Layer: 0
   m_Name: GroundTileMap
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3953,6 +3953,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player_Ellen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3257025314534015447, guid: 1996f3e9b455da5428205208bd14c6c9,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     - target: {fileID: 8367799548612028183, guid: 1996f3e9b455da5428205208bd14c6c9,
         type: 3}

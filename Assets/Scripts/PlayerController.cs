@@ -121,7 +121,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Death"))              //Death by Falling from a Platform
         {
             animator.SetTrigger("Death");
-            Destroy(gameObject, 1f);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -140,11 +140,6 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
         }
     }
-
-    private void OnDestroy()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
+   
 
 }
