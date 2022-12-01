@@ -143,7 +143,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnDestroy()
     {
-        SceneManager.LoadScene("Level 1");
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 
