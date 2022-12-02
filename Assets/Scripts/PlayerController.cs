@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerBody;
+    [SerializeField] private ScoreController scorecontroller;
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
@@ -139,6 +140,12 @@ public class PlayerController : MonoBehaviour
         {
             isGrounded = false;
         }
+    }
+
+    public void pickupKey(int keyPoints)
+    {
+        Debug.Log("Player picked up key");
+        scorecontroller.IncreaseScore(keyPoints);
     }
    
 
