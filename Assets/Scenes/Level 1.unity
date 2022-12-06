@@ -8650,9 +8650,25 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1951634183, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
-      propertyPath: m_AutoTiling
-      value: 0
+    - target: {fileID: 1068972665, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.7728775
+      objectReference: {fileID: 0}
+    - target: {fileID: 1068972665, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7024462
+      objectReference: {fileID: 0}
+    - target: {fileID: 1068972665, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 2.0588696
+      objectReference: {fileID: 0}
+    - target: {fileID: 1068972665, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 1068972665, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.38
       objectReference: {fileID: 0}
     - target: {fileID: 1951634188, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
       propertyPath: scorecontroller

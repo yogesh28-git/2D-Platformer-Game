@@ -8,7 +8,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerBody;
-    [SerializeField] private ScoreController scorecontroller;
+    [SerializeField] private UIController scorecontroller;
 
     [SerializeField] private float speed;
     [SerializeField] private float jumpForce;
@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     private bool shiftPressed = false;
     private bool jumpPressDown = false;
     private bool ctrlPressed = false;
+
+    private bool heartBroken = false;
 
     [SerializeField] private string NewScene = "Level 2";
 
@@ -129,8 +131,8 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("LevelEnd"))
         {
-            Debug.Log("Triggered");
-            SceneManager.LoadScene("Level 2");
+            Debug.Log("Next Level");
+            SceneManager.LoadScene(NewScene);
         }
     }
 
@@ -146,6 +148,26 @@ public class PlayerController : MonoBehaviour
     {
         Debug.Log("Player picked up key");
         scorecontroller.IncreaseScore(keyPoints);
+    }
+    public void EnemyCollider()
+    {
+        Debug.Log("Collided with Enemy");
+        if (heartBroken)
+        {
+            animator.SetTrigger("Death");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+        else
+        {
+            heartBroken = true;
+            animator.SetTrigger("Hurt");
+            Vector3 position = transform.position;
+            if (transform.localScale.x > 0)
+                position.x -= 3f;
+            else
+                position.x += 3f;
+            transform.position = position;
+        }
     }
    
 
