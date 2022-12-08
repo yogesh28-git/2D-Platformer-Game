@@ -9,6 +9,7 @@ TagManager:
   - LevelEnd
   - Death
   - Heart
+  - WayPoint
   layers:
   - Default
   - TransparentFX
@@ -17,7 +18,7 @@ TagManager:
   - Water
   - UI
   - Player
-  - 
+  - Enemy
   - 
   - 
   - 
@@ -48,6 +49,9 @@ TagManager:
     locked: 0
   - name: GroundandWalls
     uniqueID: 1671620173
+    locked: 0
+  - name: Enemy
+    uniqueID: 2416931337
     locked: 0
   - name: Player
     uniqueID: 201436097
