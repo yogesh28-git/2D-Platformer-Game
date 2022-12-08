@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour
     private Animator animator;
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerBody;
+    private SpriteRenderer sprite;
     [SerializeField] private UIController scorecontroller;
 
     [SerializeField] private float speed;
@@ -19,7 +20,9 @@ public class PlayerController : MonoBehaviour
     private bool ctrlPressed = false;
 
     private bool heartBroken = false;
-
+    private bool hurt = false;
+    private float timer = 0f;
+    private int timeCount = 1;
     [SerializeField] private string NewScene = "Level 2";
 
     void Awake()
@@ -31,6 +34,7 @@ public class PlayerController : MonoBehaviour
         playerCollider = gameObject.GetComponent<BoxCollider2D>();
         animator = gameObject.GetComponent<Animator>();
         playerBody = gameObject.GetComponent<Rigidbody2D>();
+        sprite = gameObject.GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -43,6 +47,25 @@ public class PlayerController : MonoBehaviour
 
         PlayerAnimation(horizontal);
         PlayerMovement(horizontal);
+
+        if (hurt) //Hurt Delay : Blinking effect and player will not be hurt again for 3 seconds
+        {
+            timer += Time.deltaTime;
+            if (timer > (0.3 * timeCount))    //Blink every 0.3 seconds
+            {
+                if (timeCount % 2 == 0)
+                    sprite.color = new Color(1, 1, 1, 1);
+                else
+                    sprite.color = new Color(1, 1, 1, 0.3f);
+                timeCount++;
+            }   
+            if (timer >= 3f)                //waiting 3 seconds
+            {
+                hurt = false;
+                timer = 0f;
+                timeCount = 1;
+            }
+        }
     }
     private void PlayerMovement(float horizontal)
     {
@@ -152,22 +175,26 @@ public class PlayerController : MonoBehaviour
     public void EnemyCollider()
     {
         Debug.Log("Collided with Enemy");
-        if (heartBroken)
+        if (!hurt)
         {
-            animator.SetTrigger("Death");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        else
-        {
-            heartBroken = true;
-            animator.SetTrigger("Hurt");
-            Vector3 position = transform.position;
-            if (transform.localScale.x > 0)
-                position.x -= 3f;
+            if (heartBroken)
+            {
+                animator.SetTrigger("Death");
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            }
             else
-                position.x += 3f;
-            transform.position = position;
-        }
+            {
+                heartBroken = true;
+                hurt = true;
+                animator.SetTrigger("Hurt");
+                Vector3 position = transform.position;
+                if (transform.localScale.x > 0)
+                    position.x -= 3f;
+                else
+                    position.x += 3f;
+                transform.position = position;
+            }
+        }    
     }
    
 

@@ -19,14 +19,6 @@ public class EnemyController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.GetComponent<PlayerController>() != null)
-        {
-            playercontroller = collision.gameObject.GetComponent<PlayerController>();
-            playercontroller.EnemyCollider();
-            Animator heartanim = GameObject.FindWithTag("Heart").GetComponent<Animator>();
-            heartanim.SetTrigger("heartBreak");
-            Destroy(GameObject.FindWithTag("Heart"), 0.5f);
-        }
 
         if (collision.gameObject.CompareTag("WayPoint"))
         {
@@ -45,6 +37,18 @@ public class EnemyController : MonoBehaviour
         if (collision.gameObject.CompareTag("WayPoint"))
         {
             flipped = false;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.GetComponent<PlayerController>() != null)
+        {
+            playercontroller = collision.gameObject.GetComponent<PlayerController>();
+            playercontroller.EnemyCollider();
+            Animator heartanim = GameObject.FindWithTag("Heart").GetComponent<Animator>();
+            heartanim.SetTrigger("heartBreak");
+            Destroy(GameObject.FindWithTag("Heart"), 0.5f);
         }
     }
     private void Update()
