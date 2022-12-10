@@ -1,71 +1,63 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-    private Animator animator;
+    private Animator playerAnimator;
     private BoxCollider2D playerCollider;
     private Rigidbody2D playerBody;
-    private SpriteRenderer sprite;
+    private SpriteRenderer playerSpriteRenderer;
     [SerializeField] private UIController scorecontroller;
 
-    [SerializeField] private float speed;
+    private float walkSpeed;
+    private float runSpeed;
+    private Vector2 walkingJump;
+    private Vector2 runningJump;
     [SerializeField] private float jumpForce;
+    private Color originalColor = new Color(1, 1, 1, 1);
+    private Color fadeColor = new Color(1, 1, 1, 0.3f);
+    private Vector2 playerColliderOffsetInitial = new Vector2(-0.1f, 0.6f);
+    private Vector2 playerColliderSizeInitial = new Vector2(0.9f, 1.3f);
+    private Vector2 playerColliderOffsetFinal = new Vector2(0f, 0.9f);
+    private Vector2 playerColliderSizeFinal = new Vector2(0.6f, 2f);
 
+    private float horizontalInput;
     private bool isGrounded = false;
     private bool shiftPressed = false;
     private bool jumpPressDown = false;
     private bool ctrlPressed = false;
 
-    private bool heartBroken = false;
+    private int heartCount = 3;
     private bool hurt = false;
     private float timer = 0f;
     private int timeCount = 1;
     [SerializeField] private string NewScene = "Level 2";
 
-    void Awake()
-    {
-        Debug.Log("Script detected !!!");
-    }
+    
     private void Start()
     {
         playerCollider = gameObject.GetComponent<BoxCollider2D>();
-        animator = gameObject.GetComponent<Animator>();
+        playerAnimator = gameObject.GetComponent<Animator>();
         playerBody = gameObject.GetComponent<Rigidbody2D>();
-        sprite = gameObject.GetComponent<SpriteRenderer>();
+        playerSpriteRenderer = gameObject.GetComponent<SpriteRenderer>();
+        runSpeed = 2 * walkSpeed;
+
+        runningJump = new Vector2(0f, 1.2f * jumpForce);
+        walkingJump = new Vector2(0f, jumpForce);
     }
 
     void Update()
     {
         //Inputs
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        shiftPressed = Input.GetKey(KeyCode.LeftShift);
+        horizontalInput = Input.GetAxisRaw("Horizontal");
         jumpPressDown = Input.GetButtonDown("Jump");
+        shiftPressed = Input.GetKey(KeyCode.LeftShift);
         ctrlPressed = (Input.GetKey(KeyCode.LeftControl)) || (Input.GetKey(KeyCode.RightControl));
 
-        PlayerAnimation(horizontal);
-        PlayerMovement(horizontal);
+        PlayerAnimation(horizontalInput);
+        PlayerMovement(horizontalInput);
 
-        if (hurt) //Hurt Delay : Blinking effect and player will not be hurt again for 3 seconds
-        {
-            timer += Time.deltaTime;
-            if (timer > (0.3 * timeCount))    //Blink every 0.3 seconds
-            {
-                if (timeCount % 2 == 0)
-                    sprite.color = new Color(1, 1, 1, 1);
-                else
-                    sprite.color = new Color(1, 1, 1, 0.3f);
-                timeCount++;
-            }   
-            if (timer >= 3f)                //waiting 3 seconds
-            {
-                hurt = false;
-                timer = 0f;
-                timeCount = 1;
-            }
-        }
+        playerHurt();
     }
     private void PlayerMovement(float horizontal)
     {
@@ -73,11 +65,11 @@ public class PlayerController : MonoBehaviour
         Vector3 position = transform.position;
         if (shiftPressed)
         {
-            position.x += horizontal * speed * Time.deltaTime * 2;  //Run
+            position.x += horizontal * runSpeed * Time.deltaTime;  //Run
         }
         else
         {
-            position.x += horizontal * speed * Time.deltaTime;     //Walk
+            position.x += horizontal * walkSpeed * Time.deltaTime;     //Walk
         }
         transform.position = position;
 
@@ -87,11 +79,11 @@ public class PlayerController : MonoBehaviour
             isGrounded = false;
             if (shiftPressed)
             {
-                playerBody.AddForce(new Vector2(0f, 1.2f * jumpForce), ForceMode2D.Impulse);    //Running Jump
+                playerBody.AddForce(runningJump, ForceMode2D.Impulse);    //Running Jump
             }
             else
             {
-                playerBody.AddForce(new Vector2(0f, jumpForce), ForceMode2D.Impulse);         //Walking Jump
+                playerBody.AddForce(walkingJump, ForceMode2D.Impulse);    //Walking Jump
             }
         }
 
@@ -104,8 +96,8 @@ public class PlayerController : MonoBehaviour
         {
             horizontal = 2 * horizontal;
         }
-        animator.SetFloat("Speed", Mathf.Abs(horizontal));
-        animator.SetBool("Walk_Button", (horizontal != 0 ? true : false));
+        playerAnimator.SetFloat("Speed", Mathf.Abs(horizontal));
+        playerAnimator.SetBool("Walk_Button", (horizontal != 0 ? true : false));
 
 
         //Flipping the player 
@@ -121,21 +113,21 @@ public class PlayerController : MonoBehaviour
         transform.localScale = scale;
 
         //Crouch Animation
-        animator.SetBool("Crouch", ctrlPressed);
+        playerAnimator.SetBool("Crouch", ctrlPressed);
         if (ctrlPressed)
         {
-            playerCollider.offset = new Vector2(-0.12f, 0.6f);
-            playerCollider.size = new Vector2(0.9f, 1.3f);
+            playerCollider.offset = playerColliderOffsetFinal;
+            playerCollider.size = playerColliderSizeFinal;
         }
         else
         {
-            playerCollider.offset = new Vector2(0f, 0.95f);
-            playerCollider.size = new Vector2(0.6f, 2f);
+            playerCollider.offset = playerColliderOffsetInitial;
+            playerCollider.size = playerColliderSizeInitial;
         }
 
         //Jump Animation
-        animator.SetBool("Jumped", jumpPressDown);
-        animator.SetBool("isGrounded", isGrounded);
+        playerAnimator.SetBool("Jumped", jumpPressDown);
+        playerAnimator.SetBool("isGrounded", isGrounded);
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -146,7 +138,7 @@ public class PlayerController : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Death"))              //Death by Falling from a Platform
         {
-            animator.SetTrigger("Death");
+            playerAnimator.SetTrigger("Death");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
@@ -177,25 +169,44 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Collided with Enemy");
         if (!hurt)
         {
-            if (heartBroken)
+            if (heartCount <= 0)
             {
-                animator.SetTrigger("Death");
+                playerAnimator.SetTrigger("Death");
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
             else
             {
-                heartBroken = true;
+                heartCount -= 1;
                 hurt = true;
-                animator.SetTrigger("Hurt");
+                playerAnimator.SetTrigger("Hurt");
                 Vector3 position = transform.position;
-                if (transform.localScale.x > 0)
+                if (transform.localScale.x > 0)     //throws the player backward by 3 units opposite to the direction it is facing
                     position.x -= 3f;
                 else
                     position.x += 3f;
                 transform.position = position;
             }
-        }    
+        }
     }
-   
-
+    private void playerHurt()
+    {
+        if (hurt) //Hurt Delay : Blinking effect and player will not be hurt again for 3 seconds
+        {
+            timer += Time.deltaTime;
+            if (timer > (0.3 * timeCount))    //Blink every 0.3 seconds
+            {
+                if (timeCount % 2 == 0)
+                    playerSpriteRenderer.color = originalColor;
+                else
+                    playerSpriteRenderer.color = fadeColor;
+                timeCount++;
+            }
+            if (timer >= 3)                //waiting 3 seconds
+            {
+                hurt = false;
+                timeCount = 1;
+                timer = 0f;
+            }
+        }
+    }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour
@@ -8,7 +6,7 @@ public class EnemyController : MonoBehaviour
     private BoxCollider2D enemyCollider;
     PlayerController playercontroller;
 
-    private int speed = 2;
+    private int enemySpeed = 2;
     bool flipped = false;
 
     private void Start()
@@ -56,8 +54,8 @@ public class EnemyController : MonoBehaviour
         //Move in the direction that it is facing
         Vector3 Lscale = transform.localScale;
         Vector3 position = transform.position;
-        speed = (Lscale.x > 0f) ? Mathf.Abs(speed) : (-1* Mathf.Abs(speed));
-        position.x += speed * Time.deltaTime;
+        enemySpeed = (Lscale.x > 0f) ? Mathf.Abs(enemySpeed) : (-1* Mathf.Abs(enemySpeed));
+        position.x += enemySpeed * Time.deltaTime;
         transform.position = position;
     }
 
