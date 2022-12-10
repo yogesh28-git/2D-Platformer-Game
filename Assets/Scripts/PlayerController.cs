@@ -8,8 +8,9 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D playerBody;
     private SpriteRenderer playerSpriteRenderer;
     [SerializeField] private UIController scorecontroller;
+    [SerializeField] private UIHeart heartScript;
 
-    private float walkSpeed;
+    private float walkSpeed = 3;
     private float runSpeed;
     private Vector2 walkingJump;
     private Vector2 runningJump;
@@ -177,6 +178,7 @@ public class PlayerController : MonoBehaviour
             else
             {
                 heartCount -= 1;
+                Debug.Log(heartCount);
                 hurt = true;
                 playerAnimator.SetTrigger("Hurt");
                 Vector3 position = transform.position;
@@ -185,6 +187,8 @@ public class PlayerController : MonoBehaviour
                 else
                     position.x += 3f;
                 transform.position = position;
+
+                heartScript.HeartController(heartCount);
             }
         }
     }

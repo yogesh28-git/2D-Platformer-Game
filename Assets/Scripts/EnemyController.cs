@@ -4,7 +4,7 @@ public class EnemyController : MonoBehaviour
 {
     private Animator animator;
     private BoxCollider2D enemyCollider;
-    PlayerController playercontroller;
+    [SerializeField] PlayerController playercontroller;
 
     private int enemySpeed = 2;
     bool flipped = false;
@@ -44,9 +44,6 @@ public class EnemyController : MonoBehaviour
         {
             playercontroller = collision.gameObject.GetComponent<PlayerController>();
             playercontroller.EnemyCollider();
-            Animator heartanim = GameObject.FindWithTag("Heart").GetComponent<Animator>();
-            heartanim.SetTrigger("heartBreak");
-            Destroy(GameObject.FindWithTag("Heart"), 0.5f);
         }
     }
     private void Update()
@@ -58,6 +55,5 @@ public class EnemyController : MonoBehaviour
         position.x += enemySpeed * Time.deltaTime;
         transform.position = position;
     }
-
 
 }
