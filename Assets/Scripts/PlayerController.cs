@@ -178,7 +178,6 @@ public class PlayerController : MonoBehaviour
             else
             {
                 heartCount -= 1;
-                Debug.Log(heartCount);
                 hurt = true;
                 playerAnimator.SetTrigger("Hurt");
                 Vector3 position = transform.position;
