@@ -177,7 +177,6 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
-                heartCount -= 1;
                 hurt = true;
                 playerAnimator.SetTrigger("Hurt");
                 Vector3 position = transform.position;
@@ -187,7 +186,7 @@ public class PlayerController : MonoBehaviour
                     position.x += 3f;
                 transform.position = position;
 
-                heartScript.HeartController(heartCount);
+                heartIncrease(false);
             }
         }
     }
@@ -211,5 +210,18 @@ public class PlayerController : MonoBehaviour
                 timer = 0f;
             }
         }
+    }
+
+    public void heartIncrease(bool increase)
+    {
+        if (increase)
+        {
+            heartCount += 1;
+        }
+        else
+        {
+            heartCount -= 1;
+        }
+        heartScript.HeartController(heartCount);
     }
 }

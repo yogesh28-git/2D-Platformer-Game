@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class KeyController : MonoBehaviour
+public class CollectiblesController : MonoBehaviour
 {
     PlayerController playercontroller;
     private int keyPoints = 10;
@@ -16,9 +16,16 @@ public class KeyController : MonoBehaviour
         if(collision.gameObject.GetComponent<PlayerController>() != null)
         {
             playercontroller = collision.gameObject.GetComponent<PlayerController>();
-            playercontroller.pickupKey(keyPoints);
+            if (gameObject.CompareTag("Key"))
+            {
+                playercontroller.pickupKey(keyPoints);
+            }
+            if (gameObject.CompareTag("Heart"))
+            {
+                playercontroller.heartIncrease(true);
+            }
             triggered = true;
-            Destroy(gameObject,0.5f);
+            Destroy(gameObject, 0.5f);
         }
     }
     private void Update()

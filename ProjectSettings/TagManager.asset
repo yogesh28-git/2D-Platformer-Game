@@ -10,6 +10,7 @@ TagManager:
   - Death
   - Heart
   - WayPoint
+  - Key
   layers:
   - Default
   - TransparentFX
