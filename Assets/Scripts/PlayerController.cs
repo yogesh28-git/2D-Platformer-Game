@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer playerSpriteRenderer;
     [SerializeField] private UIController scorecontroller;
     [SerializeField] private UIHeart heartScript;
+    [SerializeField] private GameOverScreenScript gameover;
 
     private float walkSpeed = 3;
     private float runSpeed;
@@ -140,7 +141,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Death"))              //Death by Falling from a Platform
         {
             playerAnimator.SetTrigger("Death");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            gameover.PlayerDead();
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -173,7 +174,7 @@ public class PlayerController : MonoBehaviour
             if (heartCount <= 0)
             {
                 playerAnimator.SetTrigger("Death");
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                gameover.PlayerDead();
             }
             else
             {
@@ -216,7 +217,8 @@ public class PlayerController : MonoBehaviour
     {
         if (increase)
         {
-            heartCount += 1;
+            if(heartCount < 3)
+                heartCount += 1;
         }
         else
         {

@@ -32,7 +32,7 @@ public class CollectiblesController : MonoBehaviour
     {
         if (triggered)   // Key Pickup effect: Key will go up and then get destroyed after 0.5 seconds
         {
-            pos.y += 0.02f;
+            pos.y += 0.01f;
             transform.position = pos;
         }
     }

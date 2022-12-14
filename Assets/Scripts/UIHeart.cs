@@ -100,7 +100,7 @@ public class UIHeart : MonoBehaviour
         {
             heartAnim.SetTrigger("HeartBroken");
         }
-        if(timer >= 2f)
+        if(timer >= 1.5f)
         {
             Debug.Log(heartObj.name);
             timer = 0;
