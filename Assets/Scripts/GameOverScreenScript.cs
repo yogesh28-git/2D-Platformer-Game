@@ -4,13 +4,15 @@ using UnityEngine.UI;
 
 public class GameOverScreenScript : MonoBehaviour
 {
-    [SerializeField] private Button RestartGame;
+    [SerializeField] private Button restartGame;
+    [SerializeField] private Button homeButton;
 
     private float DeathDuration = 1.5f;
 
     private void Awake()
     {
-        RestartGame.onClick.AddListener(ReloadScene);
+        restartGame.onClick.AddListener(ReloadScene);
+        homeButton.onClick.AddListener(GoHomeScene);
     }
 
     public void PlayerDead(GameObject player)
@@ -22,6 +24,11 @@ public class GameOverScreenScript : MonoBehaviour
     private void ReloadScene()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void GoHomeScene()
+    {
+        SceneManager.LoadScene(0);
     }
 
     private void ActivateThisGameobject()

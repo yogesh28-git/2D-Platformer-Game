@@ -4,15 +4,21 @@ using UnityEngine.SceneManagement;
 
 public class LobbyScript : MonoBehaviour
 {
-    [SerializeField] private Button PlayButton;
+    [SerializeField] private Button playButton;
+    [SerializeField] private Button quitButton;
 
     private void Awake()
     {
-        PlayButton.onClick.AddListener(LoadLevel);
+        playButton.onClick.AddListener(LoadLevel);
+        quitButton.onClick.AddListener(QuitGame);
     }
 
     private void LoadLevel()
     {
         SceneManager.LoadScene(1);
+    }
+    private void QuitGame()
+    {
+        Application.Quit();
     }
 }

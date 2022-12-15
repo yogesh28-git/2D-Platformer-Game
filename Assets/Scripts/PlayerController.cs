@@ -18,10 +18,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float jumpForce;
     private Color originalColor = new Color(1, 1, 1, 1);
     private Color fadeColor = new Color(1, 1, 1, 0.3f);
-    private Vector2 playerColliderOffsetInitial = new Vector2(-0.1f, 0.6f);
-    private Vector2 playerColliderSizeInitial = new Vector2(0.9f, 1.3f);
-    private Vector2 playerColliderOffsetFinal = new Vector2(0f, 0.9f);
-    private Vector2 playerColliderSizeFinal = new Vector2(0.6f, 2f);
+    private Vector2 playerColliderOffsetInitial = new Vector2(0f, 0.9f);
+    private Vector2 playerColliderSizeInitial = new Vector2(0.6f, 2f);
+    private Vector2 playerColliderOffsetFinal = new Vector2(-0.1f, 0.6f);
+    private Vector2 playerColliderSizeFinal = new Vector2(0.9f, 1.3f);
+    
 
     private float horizontalInput;
     private bool isGrounded = false;
