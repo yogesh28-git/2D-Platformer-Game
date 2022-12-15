@@ -6,12 +6,12 @@ public class UIHeart : MonoBehaviour
     private bool one, two, three;
     private float timer = 0;
 
-    private GameObject fullHeart1;
-    private GameObject fullHeart2;
-    private GameObject fullHeart3;
-    private GameObject emptyHeart1;
-    private GameObject emptyHeart2;
-    private GameObject emptyHeart3;
+    [SerializeField] private GameObject fullHeart1;
+    [SerializeField] private GameObject fullHeart2;
+    [SerializeField] private GameObject fullHeart3;
+    [SerializeField] private GameObject emptyHeart1;
+    [SerializeField] private GameObject emptyHeart2;
+    [SerializeField] private GameObject emptyHeart3;
 
     private Vector3 heart1Pos;
     private Vector3 heart2Pos;
@@ -23,13 +23,6 @@ public class UIHeart : MonoBehaviour
 
     private void Start()
     {
-        fullHeart1 = GameObject.Find("fullHeart1");
-        fullHeart2 = GameObject.Find("fullHeart2");
-        fullHeart3 = GameObject.Find("fullHeart3");
-        emptyHeart1 = GameObject.Find("emptyHeart1");
-        emptyHeart2 = GameObject.Find("emptyHeart2");
-        emptyHeart3 = GameObject.Find("emptyHeart3");
-
         heart1Pos = fullHeart1.transform.position;
         heart2Pos = fullHeart2.transform.position;
         heart3Pos = fullHeart3.transform.position;

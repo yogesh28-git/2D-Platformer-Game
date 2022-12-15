@@ -432,7 +432,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &461881884
 RectTransform:
   m_ObjectHideFlags: 0
@@ -468,7 +468,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4339623, g: 0.3250623, b: 0.3250623, a: 0.79607844}
+  m_Color: {r: 0.4339623, g: 0.3250623, b: 0.3250623, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -9220,7 +9220,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1352265751}
   - component: {fileID: 1352265752}
-  - component: {fileID: 1352265754}
   - component: {fileID: 1352265753}
   m_Layer: 5
   m_Name: Hearts
@@ -9267,6 +9266,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc7b97973dd240d499dc44b15b634019, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  fullHeart1: {fileID: 1960808499}
+  fullHeart2: {fileID: 644550840}
+  fullHeart3: {fileID: 2129129636}
+  emptyHeart1: {fileID: 338617725}
+  emptyHeart2: {fileID: 1397134821}
+  emptyHeart3: {fileID: 778274669}
 --- !u!212 &1352265753
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9319,26 +9324,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!95 &1352265754
-Animator:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1352265750}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 51ba6e94122056d48bbecbafb91f45b0, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1397134821
 GameObject:
   m_ObjectHideFlags: 0
@@ -11072,6 +11057,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player_Ellen
+      objectReference: {fileID: 0}
+    - target: {fileID: 3257025314534015447, guid: 1996f3e9b455da5428205208bd14c6c9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8367799548612028183, guid: 1996f3e9b455da5428205208bd14c6c9,
         type: 3}

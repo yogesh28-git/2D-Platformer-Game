@@ -141,7 +141,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Death"))              //Death by Falling from a Platform
         {
             playerAnimator.SetTrigger("Death");
-            gameover.PlayerDead();
+            gameover.PlayerDead(gameObject);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -174,7 +174,7 @@ public class PlayerController : MonoBehaviour
             if (heartCount <= 0)
             {
                 playerAnimator.SetTrigger("Death");
-                gameover.PlayerDead();
+                gameover.PlayerDead(gameObject);
             }
             else
             {
