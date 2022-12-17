@@ -11293,14 +11293,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 519420032, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 5.2
-      objectReference: {fileID: 0}
-    - target: {fileID: 519420032, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2.2
-      objectReference: {fileID: 0}
     - target: {fileID: 1951634188, guid: 1996f3e9b455da5428205208bd14c6c9, type: 3}
       propertyPath: gameover
       value: 
@@ -11317,11 +11309,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player_Ellen
-      objectReference: {fileID: 0}
-    - target: {fileID: 3257025314534015447, guid: 1996f3e9b455da5428205208bd14c6c9,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8367799548612028183, guid: 1996f3e9b455da5428205208bd14c6c9,
         type: 3}

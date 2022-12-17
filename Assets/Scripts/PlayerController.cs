@@ -15,10 +15,11 @@ public class PlayerController : MonoBehaviour
     private float runSpeed;
     private Vector2 walkingJump;
     private Vector2 runningJump;
+    private Vector2 hurtforce = new Vector2(6f,0f);
     [SerializeField] private float jumpForce;
     private Color originalColor = new Color(1, 1, 1, 1);
     private Color fadeColor = new Color(1, 1, 1, 0.3f);
-    private Vector2 playerColliderOffsetInitial = new Vector2(0f, 0.9f);
+    private Vector2 playerColliderOffsetInitial = new Vector2(0f, 0.95f);
     private Vector2 playerColliderSizeInitial = new Vector2(0.6f, 2f);
     private Vector2 playerColliderOffsetFinal = new Vector2(-0.1f, 0.6f);
     private Vector2 playerColliderSizeFinal = new Vector2(0.9f, 1.3f);
@@ -181,12 +182,11 @@ public class PlayerController : MonoBehaviour
             {
                 hurt = true;
                 playerAnimator.SetTrigger("Hurt");
-                Vector3 position = transform.position;
+                
                 if (transform.localScale.x > 0)     //throws the player backward by 3 units opposite to the direction it is facing
-                    position.x -= 3f;
+                    playerBody.AddForce(-hurtforce, ForceMode2D.Impulse);
                 else
-                    position.x += 3f;
-                transform.position = position;
+                    playerBody.AddForce(hurtforce, ForceMode2D.Impulse);
 
                 heartIncrease(false);
             }
