@@ -28,7 +28,7 @@ public class GameOverScreenScript : MonoBehaviour
 
     private void GoHomeScene()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);    //MyLobby scene is index 0. 
     }
 
     private void ActivateThisGameobject()
