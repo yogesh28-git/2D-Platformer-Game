@@ -6,16 +6,17 @@ public class LobbyScript : MonoBehaviour
 {
     [SerializeField] private Button playButton;
     [SerializeField] private Button quitButton;
+    [SerializeField] private GameObject levelSelector;
 
     private void Awake()
     {
-        playButton.onClick.AddListener(LoadLevel);
+        playButton.onClick.AddListener(LevelPopUp);
         quitButton.onClick.AddListener(QuitGame);
     }
 
-    private void LoadLevel()
+    private void LevelPopUp()
     {
-        SceneManager.LoadScene(1);
+        levelSelector.SetActive(true);
     }
     private void QuitGame()
     {
