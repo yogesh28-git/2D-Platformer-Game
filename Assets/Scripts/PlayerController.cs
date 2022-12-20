@@ -35,7 +35,6 @@ public class PlayerController : MonoBehaviour
     private bool hurt = false;
     private float timer = 0f;
     private int timeCount = 1;
-    [SerializeField] private string NewScene = "Level 2";
 
     
     private void Start()
@@ -144,14 +143,6 @@ public class PlayerController : MonoBehaviour
         {
             playerAnimator.SetTrigger("Death");
             gameover.PlayerDead(gameObject);
-        }
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("LevelEnd"))
-        {
-            Debug.Log("Next Level");
-            SceneManager.LoadScene(NewScene);
         }
     }
 
