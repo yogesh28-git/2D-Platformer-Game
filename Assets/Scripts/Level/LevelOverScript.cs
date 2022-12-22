@@ -14,8 +14,7 @@ public class LevelOverScript : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            Debug.Log("Next Level");
-            SceneManager.LoadScene(NextScene);
+            LevelManager.Instance.LevelComplete();
         }
     }
 }
