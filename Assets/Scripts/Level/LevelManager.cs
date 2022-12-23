@@ -43,7 +43,30 @@ public class LevelManager : MonoBehaviour
         Scene currLevel = SceneManager.GetActiveScene();
         SetLevelStatus(currLevel.name, LevelStatus.Completed);
         int index = currLevel.buildIndex + 1;
-        Scene nextLevel = SceneManager.GetSceneByBuildIndex(index);
-        SetLevelStatus(nextLevel.name, LevelStatus.Unlocked);
+        string nextLevel = GetLevelByIndex(index);
+        if(GetLevelStatus(nextLevel) == LevelStatus.Locked)
+        {
+            SetLevelStatus(nextLevel, LevelStatus.Unlocked);
+        }
+
+    }
+
+    private string GetLevelByIndex(int levelIndex)
+    {
+        string lvlName = "";
+        switch (levelIndex)
+        {
+            case 1: lvlName = "Level 1";
+                break;
+            case 2: lvlName = "Level 2";
+                break;
+            case 3: lvlName = "Level 3";
+                break;
+            case 4: lvlName = "Level 4";
+                break;
+            case 5: lvlName = "Level 5";
+                break;
+        }
+        return lvlName;
     }
 }
