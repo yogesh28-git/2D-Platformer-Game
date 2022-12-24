@@ -14,6 +14,11 @@ public class LevelSelectorScript : MonoBehaviour
 
     private void LoadLevel()
     {
+        if(levelName == "back")
+        {
+            this.transform.parent.gameObject.SetActive(false);
+            return;
+        }
         LevelStatus levelstatus = LevelManager.Instance.GetLevelStatus(levelName);
         switch (levelstatus)
         {

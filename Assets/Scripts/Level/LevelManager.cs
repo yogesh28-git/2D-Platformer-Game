@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        Debug.Log("awake called !!");
     }
     private void Start()
     {
