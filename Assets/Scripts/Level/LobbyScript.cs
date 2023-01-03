@@ -27,32 +27,39 @@ public class LobbyScript : MonoBehaviour
 
     private void LevelPopUp()
     {
+        SoundManager.Instance.Play(Sounds.buttonClick);
         levelSelector.SetActive(true);
     }
     private void QuitGame()
     {
+        SoundManager.Instance.Play(Sounds.buttonClick);
         quitConfirm.SetActive(true);
     }
     private void ResetGame()
     {
+        SoundManager.Instance.Play(Sounds.buttonClick);
         resetConfirm.SetActive(true);
     }
     private void YesReset()
     {
+        SoundManager.Instance.Play(Sounds.buttonClick);
         PlayerPrefs.DeleteAll();
         LevelManager.Instance.SetLevelStatus("Level 1", LevelStatus.Unlocked);
         resetConfirm.SetActive(false);
     }
     private void NoReset()
     {
+        SoundManager.Instance.Play(Sounds.buttonClick);
         resetConfirm.SetActive(false);
     }
     private void YesQuit()
     {
+        SoundManager.Instance.Play(Sounds.buttonClick);
         Application.Quit();
     }
     private void NoQuit()
     {
+        SoundManager.Instance.Play(Sounds.buttonClick);
         quitConfirm.SetActive(false);
     }
 }

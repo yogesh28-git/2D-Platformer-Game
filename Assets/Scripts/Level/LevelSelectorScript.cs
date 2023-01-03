@@ -23,12 +23,15 @@ public class LevelSelectorScript : MonoBehaviour
         switch (levelstatus)
         {
             case LevelStatus.Locked:
+                SoundManager.Instance.Play(Sounds.wrongButton);
                 Debug.Log("Can't Play this level untill you unlock it");
                 break;
             case LevelStatus.Unlocked:
+                SoundManager.Instance.Play(Sounds.buttonClick);
                 SceneManager.LoadScene(levelName);
                 break;
             case LevelStatus.Completed:
+                SoundManager.Instance.Play(Sounds.buttonClick);
                 SceneManager.LoadScene(levelName);
                 break;
         }

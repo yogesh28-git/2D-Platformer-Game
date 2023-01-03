@@ -40,10 +40,12 @@ public class LevelOverScript : MonoBehaviour
     }
     private void GoHomeScene()
     {
+        SoundManager.Instance.Play(Sounds.buttonClick);
         SceneManager.LoadScene(0);    //MyLobby scene is index 0. 
     }
     private void loadNextLevel()
     {
+        SoundManager.Instance.Play(Sounds.buttonClick);
         SceneManager.LoadScene(NextScene);
     }
 }

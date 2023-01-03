@@ -36,7 +36,6 @@ public class PlayerController : MonoBehaviour
     private float timer = 0f;
     private int timeCount = 1;
 
-    
     private void Start()
     {
         playerCollider = gameObject.GetComponent<BoxCollider2D>();
@@ -80,6 +79,7 @@ public class PlayerController : MonoBehaviour
         if (jumpPressDown && isGrounded)
         {
             isGrounded = false;
+            SoundManager.Instance.Play(Sounds.playerJumpUp);
             if (shiftPressed)
             {
                 playerBody.AddForce(runningJump, ForceMode2D.Impulse);    //Running Jump
@@ -137,11 +137,13 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Ground"))
         {
             isGrounded = true;
+            SoundManager.Instance.Play(Sounds.playerJumpLand);
         }
 
         if (collision.gameObject.CompareTag("Death"))              //Death by Falling from a Platform
         {
             playerAnimator.SetTrigger("Death");
+            SoundManager.Instance.Play(Sounds.playerDeath);
             gameover.PlayerDead(gameObject);
         }
     }

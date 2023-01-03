@@ -18,10 +18,12 @@ public class CollectiblesController : MonoBehaviour
             playercontroller = collision.gameObject.GetComponent<PlayerController>();
             if (gameObject.CompareTag("Key"))
             {
+                SoundManager.Instance.Play(Sounds.genericPickUp);
                 playercontroller.pickupKey(keyPoints);
             }
             if (gameObject.CompareTag("Heart"))
             {
+                SoundManager.Instance.Play(Sounds.healthPickUp);
                 playercontroller.heartIncrease(true);
             }
             triggered = true;
