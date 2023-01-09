@@ -6,6 +6,7 @@ public class GameOverScreenScript : MonoBehaviour
 {
     [SerializeField] private Button restartGame;
     [SerializeField] private Button homeButton;
+    [SerializeField] private UIController scorecontroller;
 
     private float DeathDuration = 1.5f;
     private int currentScene;
@@ -19,6 +20,7 @@ public class GameOverScreenScript : MonoBehaviour
 
     public void PlayerDead(GameObject player)
     {
+        scorecontroller.ResetScore();
         Invoke("ActivateThisGameobject", DeathDuration);
         //Destroy(player, DeathDuration);
         player.GetComponent<PlayerController>().enabled = false;

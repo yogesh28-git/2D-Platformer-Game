@@ -94,6 +94,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   restartGame: {fileID: 2355740929529994910}
   homeButton: {fileID: 2355740928218120774}
+  scorecontroller: {fileID: 0}
 --- !u!1 &2355740928175687739
 GameObject:
   m_ObjectHideFlags: 0

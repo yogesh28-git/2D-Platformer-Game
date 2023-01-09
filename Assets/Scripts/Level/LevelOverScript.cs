@@ -16,7 +16,7 @@ public class LevelOverScript : MonoBehaviour
     private void Awake()
     {
         currentScene = SceneManager.GetActiveScene().buildIndex;
-        NextScene = (currentScene < 5)? currentScene + 1 : 0;
+        NextScene = (currentScene < 3)? currentScene + 1 : 0;
         nextLevelButton.onClick.AddListener(loadNextLevel);
         homeButton.onClick.AddListener(GoHomeScene);
         if (NextScene == 0)

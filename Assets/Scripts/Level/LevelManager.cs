@@ -63,10 +63,6 @@ public class LevelManager : MonoBehaviour
                 break;
             case 3: lvlName = "Level 3";
                 break;
-            case 4: lvlName = "Level 4";
-                break;
-            case 5: lvlName = "Level 5";
-                break;
         }
         return lvlName;
     }
