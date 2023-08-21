@@ -1,0 +1,26 @@
+using UnityEngine;
+using TMPro;
+
+public class UIController : MonoBehaviour
+{
+    private TextMeshProUGUI scoreText;
+    private int score = 0;
+
+    private void Awake()
+    {
+        scoreText = GetComponent<TextMeshProUGUI>();
+    }
+    private void Start()
+    {
+        RefreshUI();
+    }
+    public void IncreaseScore(int increment)
+    {
+        score += increment;
+        RefreshUI();
+    }
+    private void RefreshUI()
+    {
+        scoreText.text = "Score: " + score;
+    }
+}

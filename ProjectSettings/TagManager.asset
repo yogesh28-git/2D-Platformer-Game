@@ -5,15 +5,21 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
+  - Wall
+  - LevelEnd
+  - Death
+  - Heart
+  - WayPoint
+  - Key
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground and Wall
   - Water
   - UI
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 
@@ -41,4 +47,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: GroundandWalls
+    uniqueID: 1671620173
+    locked: 0
+  - name: Enemy
+    uniqueID: 2416931337
+    locked: 0
+  - name: Player
+    uniqueID: 201436097
     locked: 0
